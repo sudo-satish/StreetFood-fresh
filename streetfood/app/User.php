@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'username'
     ];
 
     /**
@@ -26,4 +26,27 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getUserType() {
+      return $this->usertype;
+    }
+    public function getAccountAccess() {
+      return $this->account_access;
+    }
+    public function getUserName() {
+        return $this->username;
+    }
+    public function getUserId() {
+        return $this->id;
+    }
+
+    public function debit()
+    {
+        return $this->hasMany('App\Models\Expense\debit_t', 'spent_by_user_id');
+    }
+    public function credit()
+    {
+        return $this->hasMany('App\Models\Expense\credit_t', 'borrowed_from_user_id');
+    }
+
 }
